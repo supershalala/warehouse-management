@@ -1,6 +1,8 @@
 const { User, Task } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { signToken } = require('../utils/auth');
+
 
 
 const resolvers = {
@@ -37,7 +39,7 @@ const resolvers = {
             } else {
                 user = await User.create({ name, role, phone });
             }
-            const token = jwt.sign({ userId: user._id }, 'warehouse_secret_key');
+            const token = signToken(user); 
             return { token, user };
         },
         signIn: async (parent, { phone, password }) => {
@@ -53,7 +55,7 @@ const resolvers = {
                 }
             }
 
-            const token = jwt.sign({ userId: user._id }, 'your_secret_key');
+            const token = signToken(user);  
             return { token, user };
         },
 
