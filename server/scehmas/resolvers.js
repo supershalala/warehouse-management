@@ -1,4 +1,7 @@
 const { User, Task } = require('../models');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 
 const resolvers = {
     Query: {
@@ -25,6 +28,33 @@ const resolvers = {
         },
         deleteTask: async (parent, { id }) => {
             return await Task.findByIdAndDelete(id);
+        },
+
+        signUp: async (parent, { name, role, phone, password }) => {
+            let user;
+            if(role === 'manager') {
+                user = await User.create({ name, role, phone, password });
+            } else {
+                user = await User.create({ name, role, phone });
+            }
+            const token = jwt.sign({ userId: user._id }, 'warehouse_secret_key');
+            return { token, user };
+        },
+        signIn: async (parent, { phone, password }) => {
+            const user = await User.findOne({ phone });
+            if (!user) {
+                throw new Error('No such user found');
+            }
+
+            if (user.role === 'manager') {
+                const valid = await bcrypt.compare(password, user.password);
+                if (!valid) {
+                    throw new Error('Invalid password');
+                }
+            }
+
+            const token = jwt.sign({ userId: user._id }, 'your_secret_key');
+            return { token, user };
         },
 
     }
