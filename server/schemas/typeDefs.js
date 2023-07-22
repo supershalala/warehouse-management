@@ -17,6 +17,11 @@ const typeDefs = gql`
         status: String!
     }
 
+    type Auth {
+        token: ID!
+        user: User
+    }
+
     type Query {
         users: [User]
         tasks: [Task]
@@ -31,6 +36,9 @@ const typeDefs = gql`
         updateTask(id: ID!, description: String, assignedTo: ID, dueDate: String, status: String): Task
         deleteUser(id: ID!): User
         deleteTask(id: ID!): Task
+
+        signUp(name: String!, role: String!, phone: String!, password: String): Auth
+        signIn(phone: String!, password: String): Auth
     
     }
 `;
