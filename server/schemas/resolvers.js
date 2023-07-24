@@ -2,6 +2,8 @@ const { User, Task } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { signToken } = require('../utils/auth');
+const sendSMS = require('../services/twilioService');
+
 
 
 
@@ -17,7 +19,18 @@ const resolvers = {
             return await User.create({ name, role, phone });
         },
         createTask: async (parent, { description, assignedTo, dueDate, status }) => {
-            return await Task.create({ description, assignedTo, dueDate, status });
+            const task = await Task.create({ description, assignedTo, dueDate, status });
+            
+            const user = await User.findById(assignedTo);
+            const phoneNumber = user.phone;
+            
+            sendSMS(
+                `New task created: ${description}. Due: ${dueDate}`,
+                process.env.TWILIO_US_NUMBER,
+                phoneNumber
+            );
+
+            return task;
         },
         updateUser: async (parent, { id, name, role, phone }) => {
             return await User.findByIdAndUpdate(id, { name, role, phone }, { new: true });
