@@ -11,3 +11,18 @@ export const SIGNUP_USER = gql`
         }
     }
 `;
+
+export const LOGIN_USER = gql`
+  mutation login($phone: String!, $password: String!) {
+    signIn(phone: $phone, password: $password) {
+      token
+      user {
+        _id
+        name
+        role
+        phone
+        # Add any other user fields you want to retrieve after successful login
+      }
+    }
+  }
+`;
