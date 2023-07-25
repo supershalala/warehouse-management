@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { SIGNIN_USER } from '../utils/mutations';
 import AuthService from '../utils/auth';
 
 const Login = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
 
-  const [login, { loading, error }] = useMutation(LOGIN_USER, {
+  const [login, { loading, error }] = useMutation(SIGNIN_USER, {
     onCompleted({ signIn }) {
       // Handle successful login here
       console.log('Logged in successfully!', signIn);

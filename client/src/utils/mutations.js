@@ -12,7 +12,7 @@ export const SIGNUP_USER = gql`
     }
 `;
 
-export const LOGIN_USER = gql`
+export const SIGNIN_USER = gql`
   mutation login($phone: String!, $password: String!) {
     signIn(phone: $phone, password: $password) {
       token
