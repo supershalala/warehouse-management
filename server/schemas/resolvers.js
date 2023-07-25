@@ -10,9 +10,29 @@ const sendSMS = require('../services/twilioService');
 const resolvers = {
     Query: {
         users: async () => await User.find(),
-        tasks: async () => await Task.find(),
+        tasks: async () => {
+            const tasks = await Task.find().populate('assignedTo').lean();
+            return tasks.map(task => ({
+                ...task,
+                id: task._id.toString(), // map `_id` to `id`
+                assignedTo: {
+                    ...task.assignedTo,
+                    id: task.assignedTo._id.toString() // map `_id` to `id` for User
+                }
+            }));
+        },
         user: async (parent, { id }) => await User.findById(id),
-        task: async (parent, { id }) => await Task.findById(id),
+        task: async (parent, { id }) => {
+            const task = await Task.findById(id).populate('assignedTo').lean();
+            return {
+                ...task,
+                id: task._id.toString(), // map `_id` to `id`
+                assignedTo: {
+                    ...task.assignedTo,
+                    id: task.assignedTo._id.toString() // map `_id` to `id` for User
+                }
+            };
+        },
     },
     Mutation: {
         createUser: async (parent, { name, role, phone }) => {

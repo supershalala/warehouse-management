@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_TASK } from '../utils/mutations';
+import { CREATE_TASK } from '../../utils/mutations';
 
 const CreateTask = () => {
   const [description, setDescription] = useState('');

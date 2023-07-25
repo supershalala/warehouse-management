@@ -30,7 +30,7 @@ export const SIGNIN_USER = gql`
 export const CREATE_TASK = gql`
   mutation createTask($description: String!, $assignedTo: String!, $dueDate: String!, $status: String!) {
     createTask(description: $description, assignedTo: $assignedTo, dueDate: $dueDate, status: $status) {
-      _id    // Use '_id' since Mongoose is using the default '_id' field
+      _id    
       description
       assignedTo
       dueDate

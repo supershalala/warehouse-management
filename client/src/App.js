@@ -2,10 +2,19 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+
+
 import Header from './components/Header';
 import Footer from './components/Footer';
+
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+
+import AuthService from './utils/auth'; // Import the AuthService
+
+
 
 
 // Construct our main GraphQL API endpoint
@@ -35,6 +44,8 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const isAuthenticated = AuthService.loggedIn();
+
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -44,6 +55,8 @@ function App() {
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+
           </Routes>
           <Footer/> 
         </div>
