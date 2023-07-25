@@ -39,3 +39,17 @@ export const CREATE_TASK = gql`
     }
   }
 `;
+
+export const GET_TASKS = gql`
+  query getTasks {
+    tasks {
+      _id
+      description
+      assignedTo {
+        name
+      }
+      dueDate
+      status
+    }
+  }
+`;
