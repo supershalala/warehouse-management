@@ -21,8 +21,21 @@ export const SIGNIN_USER = gql`
         name
         role
         phone
-        # Add any other user fields you want to retrieve after successful login
+
       }
+    }
+  }
+`;
+
+export const CREATE_TASK = gql`
+  mutation createTask($description: String!, $assignedTo: String!, $dueDate: String!, $status: String!) {
+    createTask(description: $description, assignedTo: $assignedTo, dueDate: $dueDate, status: $status) {
+      _id    // Use '_id' since Mongoose is using the default '_id' field
+      description
+      assignedTo
+      dueDate
+      status
+
     }
   }
 `;
