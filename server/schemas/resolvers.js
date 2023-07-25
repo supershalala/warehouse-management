@@ -46,32 +46,28 @@ const resolvers = {
         },
 
         signUp: async (parent, { name, role, phone, password }) => {
-            let user;
-            if(role === 'manager') {
-                user = await User.create({ name, role, phone, password });
-            } else {
-                user = await User.create({ name, role, phone });
-            }
+            const user = await User.create({ name, role, phone, password });
             const token = signToken(user); 
             return { token, user };
-        },
+          },
+          
         signIn: async (parent, { phone, password }) => {
             const user = await User.findOne({ phone });
             if (!user) {
-                throw new Error('No such user found');
+              throw new Error('No such user found');
             }
-
-            if (user.role === 'manager') {
-                const valid = await bcrypt.compare(password, user.password);
-                if (!valid) {
-                    throw new Error('Invalid password');
-                }
+          
+            console.log(`Password: ${password}`);
+            console.log(`User password: ${user.password}`);
+          
+            const valid = await bcrypt.compare(password, user.password);
+            if (!valid) {
+              throw new Error('Invalid password');
             }
-
-            const token = signToken(user);  
+          
+            const token = signToken(user);
             return { token, user };
-        },
-
+          },
     }
 };
 

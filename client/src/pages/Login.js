@@ -9,6 +9,7 @@ const Login = () => {
 
   const [login, { loading, error }] = useMutation(SIGNIN_USER, {
     onCompleted({ signIn }) {
+      console.log('Token:', signIn.token);
       // Handle successful login here
       console.log('Logged in successfully!', signIn);
       // Save the token to local storage using AuthService method

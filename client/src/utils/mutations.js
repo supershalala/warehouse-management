@@ -13,11 +13,11 @@ export const SIGNUP_USER = gql`
 `;
 
 export const SIGNIN_USER = gql`
-  mutation login($phone: String!, $password: String!) {
+  mutation signIn($phone: String!, $password: String!) {
     signIn(phone: $phone, password: $password) {
       token
       user {
-        _id
+        id
         name
         role
         phone
