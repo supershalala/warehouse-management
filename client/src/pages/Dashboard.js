@@ -16,7 +16,7 @@ const Dashboard = () => {
     <div>
       <h2>Dashboard</h2>
       <CreateTask />
-      {/* <ViewTask /> */}
+      <ViewTask />
     </div>
   );
 };

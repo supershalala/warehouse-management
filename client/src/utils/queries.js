@@ -24,3 +24,20 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+
+
+export const GET_PENDING_TASKS = gql`
+  query GetPendingTasks($status: String!) {
+    tasks(status: $status) {
+      id
+      description
+      assignedTo {
+        id
+        name
+      }
+      dueDate
+      status
+    }
+  }
+`;

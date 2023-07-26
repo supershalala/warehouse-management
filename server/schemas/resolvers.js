@@ -75,9 +75,30 @@ const resolvers = {
         updateUser: async (parent, { id, name, role, phone }) => {
             return await User.findByIdAndUpdate(id, { name, role, phone }, { new: true });
         },
+        // updateTask: async (parent, { id, description, assignedTo, dueDate, status }) => {
+        //     return await Task.findByIdAndUpdate(id, { description, assignedTo, dueDate, status }, { new: true });
+        // },
         updateTask: async (parent, { id, description, assignedTo, dueDate, status }) => {
-            return await Task.findByIdAndUpdate(id, { description, assignedTo, dueDate, status }, { new: true });
+            let updates = {};
+            if (description !== undefined) updates.description = description;
+            if (assignedTo !== undefined) updates.assignedTo = assignedTo;
+            if (dueDate !== undefined) updates.dueDate = dueDate;
+            if (status !== undefined) updates.status = status;
+          
+            const updatedTask = await Task.findByIdAndUpdate(id, updates, { new: true }).populate('assignedTo');
+          
+            // Convert the task object to a plain JavaScript object and convert `_id` to `id`
+            return {
+                ...updatedTask.toObject(),
+                id: updatedTask._id.toString(),
+                assignedTo: {
+                    ...updatedTask.assignedTo.toObject(),
+                    id: updatedTask.assignedTo._id.toString()
+                }
+            };
         },
+        
+
         deleteUser: async (parent, { id }) => {
             return await User.findByIdAndDelete(id);
         },
