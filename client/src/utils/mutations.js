@@ -28,14 +28,16 @@ export const SIGNIN_USER = gql`
 `;
 
 export const CREATE_TASK = gql`
-  mutation createTask($description: String!, $assignedTo: String!, $dueDate: String!, $status: String!) {
+  mutation createTask($description: String!, $assignedTo: ID!, $dueDate: String!, $status: String!) {
     createTask(description: $description, assignedTo: $assignedTo, dueDate: $dueDate, status: $status) {
-      _id    
+      id
       description
-      assignedTo
+      assignedTo {
+        id
+        name
+      }
       dueDate
       status
-
     }
   }
 `;
