@@ -119,6 +119,7 @@ const SignUp = () => {
     <div className="container mt-5" style={{ height: '82vh' }}>
       <div className="row justify-content-center">
         <div className="col-md-6">
+        <h2 className="mb-4">Sign Up</h2>
           {data ? (
             <div className="alert alert-success">
               <h2>Signup Successful!</h2>
