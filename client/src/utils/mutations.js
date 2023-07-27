@@ -56,20 +56,7 @@ export const GET_TASKS = gql`
   }
 `;
 
-// export const UPDATE_TASK = gql`
-//   mutation UpdateTask($id: ID!, $description: String!, $assignedTo: ID!, $dueDate: String!, $status: String!) {
-//     updateTask(id: $id, description: $description, assignedTo: $assignedTo, dueDate: $dueDate, status: $status) {
-//       id
-//       description
-//       assignedTo {
-//         id
-//         name
-//       }
-//       dueDate
-//       status
-//     }
-//   }
-// `;
+
 
 export const UPDATE_TASK = gql`
   mutation UpdateTask($id: ID!, $status: String!) {

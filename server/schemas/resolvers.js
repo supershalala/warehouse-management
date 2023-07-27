@@ -55,13 +55,7 @@ const resolvers = {
                 phoneNumber
             );
 
-            // return task;
-
-            // return {
-            //     ...task.toObject(),  // Convert the MongoDB document to a plain JavaScript object
-            //     id: task._id.toString(),  // Convert the ObjectId to a string
-            //     assignedTo: assignedTo.toString()  // Convert the ObjectId to a string
-            // };
+          
             return {
                 ...task.toObject(),  // Convert the MongoDB document to a plain JavaScript object
                 id: task._id.toString(),  // Convert the ObjectId to a string
@@ -75,9 +69,7 @@ const resolvers = {
         updateUser: async (parent, { id, name, role, phone }) => {
             return await User.findByIdAndUpdate(id, { name, role, phone }, { new: true });
         },
-        // updateTask: async (parent, { id, description, assignedTo, dueDate, status }) => {
-        //     return await Task.findByIdAndUpdate(id, { description, assignedTo, dueDate, status }, { new: true });
-        // },
+     
         updateTask: async (parent, { id, description, assignedTo, dueDate, status }) => {
             let updates = {};
             if (description !== undefined) updates.description = description;
@@ -85,7 +77,6 @@ const resolvers = {
             if (dueDate !== undefined) updates.dueDate = dueDate;
             if (status !== undefined) updates.status = status;
           
-            // const updatedTask = await Task.findByIdAndUpdate(id, updates, { new: true }).populate('assignedTo');
 
             const previousTask = await Task.findById(id).lean();
             const updatedTask = await Task.findByIdAndUpdate(id, updates, { new: true }).populate('assignedTo');

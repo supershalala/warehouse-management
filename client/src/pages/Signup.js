@@ -22,7 +22,6 @@ const SignUp = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // Perform final validation before submitting the form
     let isValid = true;
     const errors = {
       name: '',
@@ -52,7 +51,6 @@ const SignUp = () => {
 
     if (isValid) {
       try {
-        // Set the role value to "manager"
         formState.role = 'manager';
 
         const { data } = await signUp({

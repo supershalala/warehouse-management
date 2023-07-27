@@ -10,22 +10,17 @@ const Login = () => {
   const [login, { loading, error }] = useMutation(SIGNIN_USER, {
     onCompleted({ signIn }) {
       console.log('Token:', signIn.token);
-      // Handle successful login here
       console.log('Logged in successfully!', signIn);
-      // Save the token to local storage using AuthService method
       AuthService.login(signIn.token);
-      // Reload the page to take effect
       window.location.reload();
     },
     onError(error) {
-      // Handle error during login
       console.error('Login error:', error.message);
     },
   });
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Call the login mutation with the provided phone and password
     login({ variables: { phone, password } });
   };
 
