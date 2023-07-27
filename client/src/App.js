@@ -13,7 +13,10 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import StaffManagement from './pages/StaffManagement';
 
+import HomePage from './pages/Homepage';
+
 import AuthService from './utils/auth';
+
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -60,6 +63,9 @@ function App() {
           <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
         
           <Routes>
+
+          <Route path="/" element={<HomePage />} />
+
             <Route
               path="/signup"
               element={<Signup onLogin={handleLogin} />}
