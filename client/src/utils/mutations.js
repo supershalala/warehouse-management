@@ -85,3 +85,23 @@ export const UPDATE_TASK = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($id: ID!, $name: String!, $role: String!, $phone: String!) {
+    updateUser(id: $id, name: $name, role: $role, phone: $phone) {
+      id
+      name
+      role
+      phone
+    }
+  }
+`;
+
+export const DELETE_USER = gql`
+  mutation DeleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      id
+      name
+    }
+  }
+`;
