@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_TASKS } from '../../utils/queries';
@@ -34,6 +33,14 @@ const ViewTask = () => {
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;
   const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -48,7 +55,7 @@ const ViewTask = () => {
               <div className="card-body">
                 <h2 className="card-title">{task.description}</h2>
                 <p className="card-text">Assigned to: {task.assignedTo.name}</p>
-                <p className="card-text">Due date: {task.dueDate}</p>
+                <p className="card-text">Due date: {formatDate(task.dueDate)}</p>
                 <div className={`form-group ${task.status === 'completed' ? 'text-white' : ''}`}>
                   <label htmlFor={`status-${task.id}`}>Status:</label>
                   <select
