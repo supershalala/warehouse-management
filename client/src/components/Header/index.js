@@ -19,6 +19,7 @@ function Header() {
       <ul className="navbar-nav col-6 justify-content-center">
           {isAuthenticated && <li className="nav-item">
             <Link className="nav-link" to="/dashboard">Dashboard</Link>
+            <Link className="nav-link" to="/staffmanagement">Staff Management</Link>
           </li>}
         </ul>
         <div className="col-6 text-lg-right px-0">
