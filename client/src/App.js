@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import StaffManagement from './pages/StaffManagement';
 
 import AuthService from './utils/auth'; // Import the AuthService
 
@@ -56,7 +57,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
-
+<Route path="/staffmanagement" element={isAuthenticated ? <StaffManagement /> : <Navigate to="/login" />} />
           </Routes>
           <Footer/> 
         </div>
