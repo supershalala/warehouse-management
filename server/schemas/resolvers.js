@@ -85,7 +85,21 @@ const resolvers = {
             if (dueDate !== undefined) updates.dueDate = dueDate;
             if (status !== undefined) updates.status = status;
           
+            // const updatedTask = await Task.findByIdAndUpdate(id, updates, { new: true }).populate('assignedTo');
+
+            const previousTask = await Task.findById(id).lean();
             const updatedTask = await Task.findByIdAndUpdate(id, updates, { new: true }).populate('assignedTo');
+      
+            // Check if the status has changed to "completed" and send a text notification
+            if (status === 'completed' && previousTask.status !== 'completed') {
+              const user = await User.findById(updatedTask.assignedTo);
+              const phoneNumber = user.phone;
+              sendSMS(
+                `Task "${updatedTask.description}" has been marked as completed. Due: ${updatedTask.dueDate}`,
+                process.env.TWILIO_US_NUMBER,
+                phoneNumber
+              );
+            }
           
             // Convert the task object to a plain JavaScript object and convert `_id` to `id`
             return {
