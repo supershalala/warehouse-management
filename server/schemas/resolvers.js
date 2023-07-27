@@ -95,7 +95,7 @@ const resolvers = {
               const user = await User.findById(updatedTask.assignedTo);
               const phoneNumber = user.phone;
               sendSMS(
-                `Task "${updatedTask.description}" has been marked as completed. Due: ${updatedTask.dueDate}`,
+                `Task "${updatedTask.description}" has been marked as completed.`,
                 process.env.TWILIO_US_NUMBER,
                 phoneNumber
               );
