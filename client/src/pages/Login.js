@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5" style={{ height: '75vh' }} >
+    <div className="container mt-5" style={{ height: '82vh' }} >
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2 className="mb-4">Login</h2>

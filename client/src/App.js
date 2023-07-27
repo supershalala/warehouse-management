@@ -51,7 +51,7 @@ function App() {
       <Router>
         <div className="App">
           <Header />
-          <h1>Warehouse Management</h1>
+        
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
