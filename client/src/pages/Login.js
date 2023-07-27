@@ -30,31 +30,37 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor="phone">Phone:</label>
-          <input
-            type="text"
-            id="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+    <div className="container mt-5" style={{ height: '75vh' }} >
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <h2 className="mb-4">Login</h2>
+          <form onSubmit={handleLogin}>
+            <div className="form-group">
+              <label htmlFor="phone">Phone:</label>
+              <input
+                type="text"
+                id="phone"
+                className="form-control"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">Login</button>
+          </form>
+          {loading && <p>Loading...</p>}
+          {error && <p className="text-danger">Error: {error.message}</p>}
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
+      </div>
     </div>
   );
 };
